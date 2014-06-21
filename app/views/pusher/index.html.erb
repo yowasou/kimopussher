@@ -1,0 +1,24 @@
+<%= javascript_include_tag "http://js.pusherapp.com/2.2/pusher.min.js" %>
+
+<script type="text/javascript">
+  var pusher = new Pusher('fe4a15e1a9a1df8517e5');
+  var channel = pusher.subscribe('channel');
+  channel.bind('event', function(data) {
+    alert(data);
+  });
+
+
+  $(document).ready(function(){
+    $("#post").click(function(){
+      $.ajax({
+        type: "POST",
+        url: "/pusher/create",
+        data: "text="+$('#text').val(),
+        success: function() {},
+      });
+    });
+  })
+</script>
+<div id="ul">what?</div>
+<input type="text" id="text" />
+<input type="button" id="post">送信</input>
