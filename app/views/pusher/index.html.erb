@@ -4,10 +4,11 @@
   var pusher = new Pusher('fe4a15e1a9a1df8517e5');
   var channel = pusher.subscribe('channel');
   channel.bind('event', function(data) {
-    alert(data);
+    //alert(data);
   });
-
-
+  <% eventButtons = {'light_tenmetu' => 'ライト点滅', 'light_off' => 'ライト消灯', 'koumori' => 'こうもりが横切る', 'hitodama' => '人魂が横切る', 'namakubi' => '上から生首'}
+  %>
+/*
   $(document).ready(function(){
     $("#post").click(function(){
       $.ajax({
@@ -17,8 +18,22 @@
         success: function() {},
       });
     });
-  })
+  });
+*/
+  function btclicked(btname)
+  {
+    //alert(btname);
+    $.ajax({
+        type: "POST",
+        url: "/pusher/create",
+        data: "text="+ btname,
+        success: function() {},
+      });
+  }
 </script>
 <div id="ul">what?</div>
 <input type="text" id="text" />
-<input type="button" id="post">送信</input>
+<%= @flagflat %>
+<% eventButtons.each_pair do |key, value| %>
+<input type="button" id="<%= key %>" value="<%= value %>" onclick="btclicked('<%= key %>')"> </input>
+<% end %>
