@@ -6,7 +6,7 @@ class PusherController < ApplicationController
     @flagflat = "test"
   end
   def create
-    Pusher["channel"].trigger("event", params[:text]+"<br />")
+    Pusher["channel"].trigger(params[:text], params[:text]+"<br />")
     render :text => "success"
   end
 end
